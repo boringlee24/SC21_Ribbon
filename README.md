@@ -18,8 +18,9 @@ To setup the BO backend, clone the repo, copy the source file over and build the
 ```shell
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/fmfn/BayesianOptimization.git
-copy over
-Build 
-Add python path
+cp SIMBO/bayesian_optimization.py BayesianOptimization/bayes_opt
+cd BayesianOptimization
+python setup.py build
+Add build directory to python path
 ```
 
