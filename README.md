@@ -21,6 +21,25 @@ git clone https://github.com/fmfn/BayesianOptimization.git
 cp SIMBO/bayesian_optimization.py BayesianOptimization/bayes_opt
 cd BayesianOptimization
 python setup.py build
-Add build directory to python path
+PYTHONPATH="$PYTHONPATH:/usr_gir_dir/BayesianOptimization/build/lib" # make sure python sees this library
+export PYTHONPATH
+cd /usr_git_dir/SIMBO
 ```
+
+## Inference models
+
+The source code for evaluated models are in the ```models``` directory. The characterization data of each model on various instances are in the ```characterization``` directory.
+
+Here are the links to each model implementation.
+
+1. CANDLE (cancer distributed learning environment) Combo model: [link](https://github.com/ECP-CANDLE/Benchmarks/tree/master/Pilot1/Combo)
+2. VGG model: [link](https://keras.io/api/applications/vgg/)
+3. ResNet model: [link](https://keras.io/api/applications/resnet/)
+4. MT-WND (multi-task wide and deep): [link](https://github.com/harvard-acc/DeepRecSys/blob/master/models/multi_task_wnd.py)
+5. DIEN (deep interest evolution network): [link](https://github.com/harvard-acc/DeepRecSys/blob/master/models/dien.py)
+
+## Getting started
+
+### Inference models
+
 
