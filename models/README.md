@@ -20,4 +20,4 @@ To install environment for MT-WND and DIEN models:
 
 To run characterization, first launch a desired AWS EC2 instance. Set up the software environment.
 
-To characterize a desired model, run ```python model_name.py```
+To characterize a desired model, run ```python model_name.py instance_name```
