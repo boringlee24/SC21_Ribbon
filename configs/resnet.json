@@ -1,0 +1,8 @@
+{
+    "ins_types": ["c5a.4xlarge", "m5.2xlarge", "t3.2xlarge"],
+    "max_num": [8, 11, 9],
+    "num_samp": 10000,
+    "inter_arrival": 18,
+    "qos": 400,
+    "rm": "resnet"
+}

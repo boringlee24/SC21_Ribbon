@@ -1,0 +1,8 @@
+{
+    "ins_types": ["c5a.4xlarge", "m5.2xlarge", "t3.2xlarge"],
+    "max_num": [8, 10, 10],
+    "num_samp": 10000,
+    "inter_arrival": 3,
+    "qos": 40,
+    "rm": "candle"
+}

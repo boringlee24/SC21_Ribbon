@@ -1,0 +1,8 @@
+{
+    "ins_types": ["g4dn.xlarge", "c5.2xlarge", "r5n.large"],
+    "max_num": [5, 10, 12],
+    "num_samp": 10000,
+    "inter_arrival": 1.5,
+    "qos": 21,
+    "rm": "mtwnd"
+}

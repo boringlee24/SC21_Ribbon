@@ -38,8 +38,21 @@ Here are the links to each model implementation.
 4. MT-WND (multi-task wide and deep): [link](https://github.com/harvard-acc/DeepRecSys/blob/master/models/multi_task_wnd.py)
 5. DIEN (deep interest evolution network): [link](https://github.com/harvard-acc/DeepRecSys/blob/master/models/dien.py)
 
-## Getting started
+## Start SIMBO
 
-### Inference models
+```shell
+python simbo.py
+```
 
+## Compare SIMBO against other schemes
 
+```shell
+python all_scheme.py
+```
+To visualize the comparison, run
+
+```shell
+python visualize.py
+```
+
+The ```result.pdf``` shows the visualized comparison.
