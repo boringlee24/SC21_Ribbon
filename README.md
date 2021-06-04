@@ -8,6 +8,7 @@ SIMBO applies a Bayesian Optimization (BO) engine for heterogeneous instance ser
 * Numpy 1.18
 * Scipy 1.4
 * Scikit-learn 0.24
+* Joblib 1.0
 
 ## Bayesian Optimization Engine Setup
 
