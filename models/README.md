@@ -20,4 +20,10 @@ To install environment for MT-WND and DIEN models:
 
 To run characterization, first launch a desired AWS EC2 instance. Set up the software environment.
 
+To run CANDLE Combo model, first download the trained model files: [saved.model.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.model.h5) and [saved.weights.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.weights.h5). Put them in current directory.
+
+To run the ResNet and VGG models, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing)
+
+No other actions are required for MT-WND and DIEN models.
+
 To characterize a desired model, run ```python model_name.py instance_name```
