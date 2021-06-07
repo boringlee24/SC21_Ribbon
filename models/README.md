@@ -32,8 +32,14 @@ Download the trained model files: [saved.model.h5](http://ftp.mcs.anl.gov/pub/ca
 
 To run the benchmark, do ```python candle_inf.py --testcase <instance name>```. The characterization results will reside in the ```logs``` directory
 
-To run the ResNet and VGG models, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing)
+To run the ResNet and VGG models, navigate to SIMBO directory, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing), execute the scripts. Characterization results are saved to the ```logs``` directory
 
-No other actions are required for MT-WND and DIEN models.
+```shell
+cd /usr_git_dir/SIMBO/models
+# download the trained models
+wget <model link>
+python resnet_inf.py --testcase <instance name>
+python vgg_inf.py --testcase <instance name>
+```
 
-To characterize a desired model, run ```python model_name.py instance_name```
+
