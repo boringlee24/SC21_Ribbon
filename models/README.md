@@ -23,6 +23,7 @@ To run characterization, first launch a desired AWS EC2 instance. Set up the sof
 To run CANDLE Combo model, clone the [candle repo](https://github.com/ECP-CANDLE/Benchmarks) and copy ```Combo``` directory files over.
 
 ```shell
+conda activate tf-gpu
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/ECP-CANDLE/Benchmarks candle
 cp SIMBO/models/Combo/* candle/Pilot1/Combo
@@ -42,4 +43,11 @@ python resnet_inf.py --testcase <instance name>
 python vgg_inf.py --testcase <instance name>
 ```
 
-
+To run the recommendation models, switch environment and execute the scripts
+``` shell
+conda deactivate
+conda activate pytorch-gpu
+cd /usr_git_dir/SIMBO/models
+python mtwnd_inf.py --testcase <instance name>
+python dien_inf.py --testcase <instance name>
+```
