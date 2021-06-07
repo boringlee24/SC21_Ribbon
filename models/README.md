@@ -20,7 +20,7 @@ To install environment for MT-WND and DIEN models:
 
 To run characterization, first launch a desired AWS EC2 instance. Set up the software environment.
 
-To run CANDLE Combo model, clone the [candle repo](https://github.com/ECP-CANDLE/Benchmarks) and copy ```candle_inf.py``` over.
+To run CANDLE Combo model, clone the [candle repo](https://github.com/ECP-CANDLE/Benchmarks) and copy ```Combo``` directory files over.
 
 ```shell
 cd /usr_git_dir # replace with custom path
