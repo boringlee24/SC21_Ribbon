@@ -25,12 +25,12 @@ To run CANDLE Combo model, clone the [candle repo](https://github.com/ECP-CANDLE
 ```shell
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/ECP-CANDLE/Benchmarks candle
-cp SIMBO/models/candle_inf.py candle/Pilot1/Combo
+cp SIMBO/models/Combo/* candle/Pilot1/Combo
 cd candle/Pilot1/Combo
 ```
-first download the trained model files: [saved.model.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.model.h5) and [saved.weights.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.weights.h5). Put them in current directory.
+Download the trained model files: [saved.model.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.model.h5) and [saved.weights.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.weights.h5). Put them in current directory.
 
-To run the benchmark, do ```python candle_inf.py --testcase <instance name>```
+To run the benchmark, do ```python candle_inf.py --testcase <instance name>```. The characterization results will reside in the ```logs``` directory
 
 To run the ResNet and VGG models, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing)
 
