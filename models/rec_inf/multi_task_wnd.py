@@ -595,7 +595,7 @@ if __name__ == "__main__":
         instance = args.instance
         use_gpu = '' if args.use_accel == False else '_gpu'
         num_col = args.num_col
-        with open('../logs/'+instance+'/'+model_name+'_'+str(batch)+use_gpu+'_'+num_col+'.json', 'w') as fp:
+        with open('logs/'+instance+'/'+model_name+'_'+str(batch)+use_gpu+'_'+num_col+'.json', 'w') as fp:
             json.dump(runtime_ms, fp, indent=4)
 
 
