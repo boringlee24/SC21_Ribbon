@@ -597,6 +597,7 @@ if __name__ == "__main__":
         num_col = args.num_col
         runtime_ms = np.array(runtime_ms)
         runtime_ms = np.delete(runtime_ms, runtime_ms.argmax())
+        runtime_ms = list(runtime_ms)
         with open('logs/'+instance+'/'+model_name+'_'+str(batch)+use_gpu+'_'+num_col+'.json', 'w') as fp:
             json.dump(runtime_ms, fp, indent=4)
 
