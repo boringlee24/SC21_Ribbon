@@ -50,6 +50,7 @@ conda activate pytorch-gpu
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/harvard-acc/DeepRecSys
 cp -r SIMBO/models/rec_inf/ DeepRecSys/models
+cp SIMBO/models/utils.py DeepRecSys/utils
 cd DeepRecSys/models/rec_inf
 python experiment.py --testcase <instance name>
 ```
