@@ -29,7 +29,7 @@ cd /usr_git_dir/SIMBO
 
 ## Inference models
 
-The source code for evaluated models are in the ```models``` directory. The characterization data of each model on various instances are in the ```characterization``` directory.
+The source code for evaluated models are in the ```models``` directory. The characterization data of each model on various instances are in the ```characterization``` directory. To verify the characterization data, navigate to the ```models``` directory, follow the instructions to run the benchmarks, and compare the collected logs with data in ```characterization```.
 
 Here are the links to each model implementation.
 
@@ -40,6 +40,14 @@ Here are the links to each model implementation.
 5. DIEN (deep interest evolution network): [link](https://github.com/harvard-acc/DeepRecSys/blob/master/models/dien.py)
 
 ## Start SIMBO
+
+The characterization data is used to evaluate whether a certain configuration meets the target QoS. First extract the zipped file.
+
+```shell
+cd characterization
+tar -xf logs.tar.gz
+cd ../
+```
 
 ```shell
 python simbo.py
