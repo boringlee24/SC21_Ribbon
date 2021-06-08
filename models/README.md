@@ -43,7 +43,7 @@ python resnet_inf.py --testcase <instance name>
 python vgg_inf.py --testcase <instance name>
 ```
 
-To run the recommendation models, switch environment and clone the [deeprecsys](https://github.com/harvard-acc/DeepRecSys) repo. 
+To run the recommendation models, switch environment and clone the [deeprecsys](https://github.com/harvard-acc/DeepRecSys) repo. Switch to the new repo and run the script. Results are written to the ```log``` directory. 
 ``` shell
 conda deactivate
 conda activate pytorch-gpu
@@ -51,11 +51,6 @@ cd /usr_git_dir # replace with custom path
 git clone https://github.com/harvard-acc/DeepRecSys
 cp -r SIMBO/models/rec_inf/ DeepRecSys/models
 cd DeepRecSys/models/rec_inf
+python experiment.py --testcase <instance name>
 ```
 
-Characterization results are written to the ```logs``` directory.
-``` shell
-cd /usr_git_dir/SIMBO/models
-python mtwnd_inf.py --testcase <instance name>
-python dien_inf.py --testcase <instance name>
-```
