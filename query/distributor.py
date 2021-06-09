@@ -17,10 +17,10 @@ import time
 import functions
 from functions import Instance
 
-def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
+def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
 
     # read in price.csv as a dict
-    price_file = '../price.csv'
+    price_file = 'price.csv'
     price = pandas.read_csv(price_file)
     instance_list = price[price.columns[0]].tolist()
     price_list = price[price.columns[1]].tolist()
@@ -53,19 +53,10 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
     for ins in types: 
         lat_dict[ins] = []
         for batch in range(10, 501, 10):
-            path = f'../../../simulator/{ins}/{rm}_{batch}_1.json'
-            path_load = f'../../../../logs_load/simulator/{ins}/{rm}_{batch}_1.json'
+            path = f'../characterization/logs/{ins}/{rm}_{batch}_1.json'
             with open(path, 'r') as f:
                 lat_list = json.load(f)
-            with open(path_load, 'r') as f_load:
-                load_list = np.asarray(json.load(f_load))
-            if len(lat_list) != len(load_list):
-                print('error with instance', instance)
-                continue
-            else:
-                total_lat = lat_list + load_list
-                filter_lat = np.delete(total_lat, total_lat.argmax())
-                lat_dict[ins].append(filter_lat)
+            lat_dict[ins].append((lat_list))
 
     violation = [] # 0: no violation. 1: violation because latency 2: violation because of wait 3: violation because of both wait and latency
     
@@ -81,13 +72,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
     
     time_start = time.time()
    
-    count_0 = {} # number of queries that cannot meet QoS on m5 and r4
-    count_1 = {} # number of queries that cannot meet QoS on r4
-
-    for key in types:
-        count_0[key] = 0
-        count_1[key] = 0
-    
     while True:
         # FIFO queue, always makes sure queries get served by coming order
         while True: # when query arrive at same time, add all to queue
@@ -116,11 +100,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
                 lat = round(random.choice(lat_dict[ins.ins_type][batch_ind]))
     
                 ins.start(q_serve, lat, curr_time)
-
-                if batch >= 340:
-                    count_0[ins.ins_type] += 1
-                elif batch >= 290:
-                    count_1[ins.ins_type] += 1
 
                 if lat + q_wait <= qos:
                     violation.append(0)
@@ -175,8 +154,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
         print(f'wait violation: {wait_vio}%')
         print(f'sum violation: {sum_vio}%')
         print(f'throughput QPS: {throughput}')
-        #print(count_0)
-        #print(count_1)
    
     #TODO: write these things as output.json
     
@@ -188,6 +165,5 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=150, rm='model'):
     output['sum_vio'] = round(sum_vio,2)
     output['throughput'] = round(throughput,2)
     
-    return output['total_price'], output['non_vio'], count_0, count_1 
+    return output['total_price'], output['non_vio']
 
-#run()
