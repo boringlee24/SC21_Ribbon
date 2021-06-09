@@ -49,18 +49,22 @@ tar -xf logs.tar.gz
 cd ../
 ```
 
+Navigate to the BO directory and run SIMBO
+
 ```shell
+cd BO/
 python simbo.py
 ```
 
 ## Compare SIMBO against other schemes
 
 ```shell
-python all_scheme.py
+python all_scheme.sh
 ```
 To visualize the comparison, run
 
 ```shell
+cd ../
 python visualize.py
 ```
 
