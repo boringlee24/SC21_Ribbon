@@ -28,8 +28,10 @@ import multiprocessing
 #####################
 
 acq = 'ei_prune'
-models = ['resnet'] #['candle', 'resnet', 'vgg'] TODO
-homo_key = {'candle': '8, 0, 0', 'resnet': '8, 0, 0', 'vgg': '9, 0, 0'} 
+models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] #TODO
+homo_key = {'candle': '8, 0, 0', 'resnet': '8, 0, 0', 'vgg': '9, 0, 0', 'mtwnd': '5, 0, 0', 'dien': '6, 0, 0'}
+pdb.set_trace() #TODO: use json for homo_key, and improvement stamp (1, 3.5, 6, ...)
+
 num_iter = 100 # run monte-carlo
 xi = 0.1
 
@@ -130,6 +132,4 @@ for model in models:
         json.dump(qos_rate, f, indent=4)
     with open(f'data/BO/data/monte_carlo/cost/{model}_only_prune.json', 'w') as f:
         json.dump(cost, f, indent=4)
-
-
 

@@ -110,10 +110,6 @@ def get_violate_dict():
     return violate_dict
 
 class BO(BayesianOptimization):
-#    def __init__(self, *args, **kwargs):
-#        super().__init__(*args, **kwargs)
-#        self.pruned = []
-
     def bo_prune(self, violate_dict):
         # update p_upper and p_lower after each update
         x_prev = np.round(self._space._params[-1])
@@ -129,7 +125,7 @@ class BO(BayesianOptimization):
 
         if violate_dict[key] == False:
             ins1, ins2, ins3 = get_ins_type(model)
-            standard_price = round(price_dict[ins1]*x_bound + price_dict[ins2]*y_bound + price_dict[ins3]*z_bound,2)
+            standard_price = round(total_price(model, x_bound, y_bound, z_bound), 2)
             point = [x_bound, y_bound, z_bound] # don't forget itself
             self._pruned.append(point)
             for x in range(0, xmax):
@@ -137,7 +133,7 @@ class BO(BayesianOptimization):
                     for z in range(0, zmax):
                         point = [x,y,z]
                         if point not in self._pruned:
-                            t_price = round(price_dict[ins1]*x + price_dict[ins2]*y + price_dict[ins3]*z,2)
+                            t_price = round(total_price(model, x, y, z),2)
                             if t_price > standard_price:
                                 self._pruned.append(point)
         elif violate_dict[key] == True:
