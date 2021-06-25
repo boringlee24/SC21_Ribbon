@@ -28,9 +28,11 @@ import multiprocessing
 #####################
 
 acq = 'ei_prune'
-models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] #TODO
-homo_key = {'candle': '8, 0, 0', 'resnet': '8, 0, 0', 'vgg': '9, 0, 0', 'mtwnd': '5, 0, 0', 'dien': '6, 0, 0'}
-pdb.set_trace() #TODO: use json for homo_key, and improvement stamp (1, 3.5, 6, ...)
+models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] 
+with open('configs/homogeneous.json') as f:
+    homo_key = json.load(f)
+with open('configs/saving.json') as f:
+    saving = json.load(f)
 
 num_iter = 100 # run monte-carlo
 xi = 0.1
@@ -58,13 +60,12 @@ def inner_loop(iteration, scores):
     optimizer.maximize(init_points=1, n_iter=0,acq=acq,xi=xi)
     data = check_step(optimizer, data, current_iter)
     violate_dict = BO_functions.get_violate_dict()
-    if 'prune' in acq:
-        optimizer.only_prune_3D(violate_dict)
+    optimizer.bo_prune(violate_dict)
     optimizer.maximize(init_points=1, n_iter=0,acq=acq,xi=xi)
     data = check_step(optimizer, data, current_iter)
     violate_dict = BO_functions.get_violate_dict()
-    if 'prune' in acq:
-        optimizer.only_prune_3D(violate_dict)
+    optimizer.bo_prune(violate_dict)
+
     while data[optimal] == 0: # run till it converges to oracle
         try: 
             optimizer.maximize(init_points=0, n_iter=1,acq=acq,xi=xi)
@@ -78,8 +79,7 @@ def inner_loop(iteration, scores):
         current_iter += 1
         data = check_step(optimizer, data, current_iter)
         violate_dict = BO_functions.get_violate_dict()
-        if 'prune' in acq:
-            optimizer.only_prune_3D(violate_dict)
+        optimizer.bo_prune(violate_dict)
         if current_iter >= 200:
             # set unreached point to None
             for k,v in data.items():
@@ -88,7 +88,7 @@ def inner_loop(iteration, scores):
             break
     targets = optimizer._space.target.tolist()
     within_qos = [k*99*2 for k in targets if k <= 99/99/2] # QoS rate for configs that violates QoS
-    qos_rate = len(within_qos)# / len(targets) * 100
+    qos_rate = len(within_qos)
 
     explored_points = np.round(optimizer._space._params).tolist()
     cost = np.mean([BO_functions.total_price(model, *p) for p in explored_points])
@@ -104,11 +104,9 @@ for model in models:
     xmax, ymax, zmax = BO_functions.max_instance(model)
     pbounds = {'x': (0, xmax), 'y': (0, ymax), 'z': (0, zmax)}
 
-    path = f'data/{model}/99.json' 
-    with open(path, 'r') as f:
-        output = json.load(f)
-    homo_p = output[homo_key[model]][0]
-    hetero_p = np.unique(np.array([v[0] for k,v in output.items() if v[0] < homo_p]))
+    homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
+    saving_arr = np.array(saving[model])
+    hetero_p = homo_p * (1 - saving_arr / 100)
     scores = list(1/2 + (1-hetero_p / BO_functions.max_price(model)) / 2)
     optimal = max(scores)
     # record number of samples needed to reach the score
@@ -126,10 +124,6 @@ for model in models:
             ind = scores.index(j)
             summary[hetero_p[ind]].append(result[0][j])
 
-    with open(f'data/BO/data/monte_carlo/{model}_only_prune.json', 'w') as f: 
+    with open(f'../BO/result/{model}_simbo.json', 'w') as f: 
         json.dump(summary, f, indent=4)
-    with open(f'data/BO/data/monte_carlo/qos_rate/{model}_only_prune.json', 'w') as f:
-        json.dump(qos_rate, f, indent=4)
-    with open(f'data/BO/data/monte_carlo/cost/{model}_only_prune.json', 'w') as f:
-        json.dump(cost, f, indent=4)
 
