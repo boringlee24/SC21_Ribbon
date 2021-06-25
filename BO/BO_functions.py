@@ -71,11 +71,22 @@ def eval_qos(model, num1, num2, num3):
         read = json.load(f)
     ins_types = read['ins_types']
     types = {ins_types[0]:num1, ins_types[1]:num2, ins_types[2]:num3}
-    kwargs = {'num_samp':read['num_samp'], 'inter_arrival':read['inter_arrival'], 'qos':read['qos'], 'rm':read['rm']}
-    price, rate1 = distr.run(types, **kwargs)
-    price, rate2 = distr.run(types, **kwargs)
-    price, rate3 = distr.run(types, **kwargs)
-    rate = min(rate1, rate2, rate3)
+    kwargs = {'num_samp':25000, 'inter_arrival':read['inter_arrival'], 'qos':read['qos'], 'rm':read['rm']}
+    price, rate = distr.run(types, **kwargs)
+    return price, rate
+
+def qos_lookup(model, num1, num2, num3):
+    assert type(num1) == int
+    assert type(num2) == int
+    assert type(num3) == int
+    key = f'{num1}, {num2}, {num3}'
+    if num1 == 0 and num2 == 0 and num3 == 0:
+        return 0, 0
+    path = f'lookups/{model}.json'
+    with open(path) as f:
+        read = json.load(f)
+    price = read[key][0]
+    rate = read[key][1]
     return price, rate
 
 def objective_int(model, num1, num2, num3):
@@ -89,7 +100,7 @@ def objective_int(model, num1, num2, num3):
     if num1 == 0 and num2 == 0 and num3 == 0:
         violate_dict[key] = True # violation
         return 0 / obj_range
-    price, rate = eval_qos(model, num1, num2, num3)    
+    price, rate = qos_lookup(model, num1, num2, num3)    
     if rate < 99: # region 1, from 2 to 1
         violate_dict[key] = True # violation
         val = rate / 99 / obj_range 
@@ -139,15 +150,7 @@ class BO(BayesianOptimization):
         elif violate_dict[key] == True:
             point = [x_bound, y_bound, z_bound] # don't forget itself
             self._pruned.append(point)
-            if model == 'dien':
-                threshold = 98.6/99/2
-            else:
-                threshold = 98.85/99/2
-            if y_prev > threshold: 
-                actual_xbound = x_bound
-            else: # violates by a lot
-                actual_xbound = x_bound+1
-            for x in range(0, actual_xbound):
+            for x in range(0, x_bound):
                 for y in range(0, y_bound+1):
                     for z in range(0, z_bound+1):
                         point = [x,y,z]
@@ -166,7 +169,7 @@ class Random_Prune():
         self.config_history = []
     def eval_config(self, num1, num2, num3):
         key = f'{num1}, {num2}, {num3}'
-        price, rate = eval_qos(model, num1, num2, num3)
+        price, rate = qos_lookup(model, num1, num2, num3)
         if price < self.best_price and rate >= 99:
             self.best_price = price
         self.remain.remove((num1, num2, num3))
@@ -226,7 +229,7 @@ class RSM_gradient():
         return ccf_list
     def eval_config(self, update, num1, num2, num3):
         key = f'{num1}, {num2}, {num3}'
-        price, rate = eval_qos(model, num1, num2, num3)
+        price, rate = qos_lookup(model, num1, num2, num3)
         if update:
             self.curr_price = price
             self.curr_rate = rate
@@ -325,7 +328,7 @@ class GradientDescent():
         return starting_point
     def eval_config(self, update, num1, num2, num3): # returns price and rate
         key = f'{num1}, {num2}, {num3}'
-        price, rate = eval_qos(model, num1, num2, num3)
+        price, rate = qos_lookup(model, num1, num2, num3)
         if update:
             self.curr_price = price
             self.curr_rate = rate

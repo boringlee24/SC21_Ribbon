@@ -28,13 +28,13 @@ import multiprocessing
 #####################
 
 acq = 'ei_prune'
-models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] 
+models = ['resnet']#['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] #TODO 
 with open('configs/homogeneous.json') as f:
     homo_key = json.load(f)
 with open('configs/saving.json') as f:
     saving = json.load(f)
 
-num_iter = 100 # run monte-carlo
+num_iter = 10 # run monte-carlo TODO
 xi = 0.1
 
 def check_step(optimizer, data, current_iter): 
@@ -97,7 +97,7 @@ def inner_loop(iteration, scores):
 
 usable_cores = os.sched_getaffinity(0)
 #usable_cores = [1]#
-pdb.set_trace()
+
 for model in models:
     print(f'model: {model}')
     BO_functions.model = model
@@ -105,7 +105,7 @@ for model in models:
     pbounds = {'x': (0, xmax), 'y': (0, ymax), 'z': (0, zmax)}
 
     homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
-    saving_arr = np.array(saving[model])
+    saving_arr = np.array(saving[model][::-1])
     hetero_p = homo_p * (1 - saving_arr / 100)
     scores = list(1/2 + (1-hetero_p / BO_functions.max_price(model)) / 2)
     optimal = max(scores)

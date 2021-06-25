@@ -18,8 +18,11 @@ import subprocess
 from joblib import Parallel, delayed
 import multiprocessing
 
-models = ['vgg'] #['candle', 'resnet', 'vgg'] TODO
-homo_key = {'candle': '8, 0, 0', 'resnet': '8, 0, 0', 'vgg': '9, 0, 0'} 
+models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] 
+with open('configs/homogeneous.json') as f:
+    homo_key = json.load(f)
+with open('configs/saving.json') as f:
+    saving = json.load(f)
 num_iter = 100 # run monte-carlo
 
 def check_step(gd, data): 
@@ -33,7 +36,7 @@ def check_step(gd, data):
     return data
 
 def inner_loop(iteration, prices):
-    print(f'iteration: {iteration}')
+    print(f'trial: {iteration}')
     BO_functions.model = model
     data = {} # num of iters needed to reach certain price
     for j in prices:
@@ -55,7 +58,7 @@ def inner_loop(iteration, prices):
         gd.iterate()
         data = check_step(gd, data)
     if gd.num_iter + len(gd.remain) != total_space: # minus one initialization point
-        print('error with iteration counting')
+        print('error with trial counting')
         sys.exit()
     targets = gd.rate_history
     within_qos = [k for k in targets if k <= 99]
@@ -78,11 +81,9 @@ for model in models:
                 point = x, y, z
                 remain.append(point)
 
-    path = f'data/{model}/99.json' 
-    with open(path, 'r') as f:
-        output = json.load(f)
-    homo_p = output[homo_key[model]][0]
-    hetero_p = np.unique(np.array([v[0] for k,v in output.items() if v[0] < homo_p]))
+    homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
+    saving_arr = np.array(saving[model])
+    hetero_p = homo_p * (1 - saving_arr / 100)
     prices = list(hetero_p)
     optimal = min(prices)
     # record number of samples needed to reach the score
@@ -102,11 +103,7 @@ for model in models:
             ind = prices.index(j)
             summary[hetero_p[ind]].append(result[0][j])
 
-    with open(f'data/BO/data/monte_carlo/{model}_rsm_grad.json', 'w') as f:
+    with open(f'../BO/result/{model}_rsm.json', 'w') as f: 
         json.dump(summary, f, indent=4)
-    with open(f'data/BO/data/monte_carlo/qos_rate/{model}_rsm_grad.json', 'w') as f: 
-        json.dump(qos_rate, f, indent=4)
-    with open(f'data/BO/data/monte_carlo/cost/{model}_rsm_grad.json', 'w') as f: 
-        json.dump(cost, f, indent=4)
 
 

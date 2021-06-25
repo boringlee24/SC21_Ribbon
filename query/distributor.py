@@ -167,3 +167,9 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
     
     return output['total_price'], output['non_vio']
 
+def main():
+    run({'c5a.4xlarge': 4, 't3.2xlarge':5, 'm5.2xlarge': 0}, num_samp=20000, inter_arrival=18, p=True, qos=400, rm='resnet') 
+    run({'c5a.4xlarge': 4, 'm5.2xlarge': 0, 't3.2xlarge':5}, num_samp=20000, inter_arrival=18, p=True, qos=400, rm='resnet') 
+   
+if __name__ == '__main__':
+    main()
