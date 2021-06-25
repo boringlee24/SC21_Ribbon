@@ -48,7 +48,7 @@ def check_step(optimizer, data, current_iter):
     return data
 
 def inner_loop(iteration, scores):
-    print(f'iteration: {iteration}')
+    print(f'trial: {iteration}')
     BO_functions.model = model
     data = {}
     for j in scores:
@@ -73,7 +73,7 @@ def inner_loop(iteration, scores):
             for k,v in data.items():
                 if v == 0:
                     data[k] = None
-            print(f'value error occured on model {model}, BO iteration {current_iter}')
+            print(f'value error occured on model {model}, BO trial {current_iter}')
             break
 
         current_iter += 1
@@ -97,7 +97,7 @@ def inner_loop(iteration, scores):
 
 usable_cores = os.sched_getaffinity(0)
 #usable_cores = [1]#
-
+pdb.set_trace()
 for model in models:
     print(f'model: {model}')
     BO_functions.model = model
