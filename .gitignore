@@ -1,4 +1,4 @@
 *pycache*
 logs/
 *.h5
-result/
+result/*.json

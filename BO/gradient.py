@@ -80,7 +80,7 @@ for model in models:
     homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
     saving_arr = np.array(saving[model])
     hetero_p = homo_p * (1 - saving_arr / 100)
-    prices = list(hetero_p)
+    prices = [round(val,2) for val in hetero_p]
     optimal = min(prices)
     # record number of samples needed to reach the score
     summary = {}
