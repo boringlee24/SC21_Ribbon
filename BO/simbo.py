@@ -128,4 +128,8 @@ for model in models:
 
     with open(f'../BO/result/{model}_simbo.json', 'w') as f: 
         json.dump(summary, f, indent=4)
+    with open(f'../BO/result/qos_rate/{model}_simbo.json', 'w') as f: 
+        json.dump(qos_rate, f, indent=4)
+    with open(f'../BO/result/cost/{model}_simbo.json', 'w') as f: 
+        json.dump(cost, f, indent=4)
 

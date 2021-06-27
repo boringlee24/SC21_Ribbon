@@ -17,6 +17,7 @@ from termcolor import colored
 import subprocess
 from joblib import Parallel, delayed
 import multiprocessing
+from pathlib import Path
 
 models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien'] 
 with open('configs/homogeneous.json') as f:
@@ -97,9 +98,15 @@ for model in models:
             ind = prices.index(j)
             summary[prices[ind]].append(result[0][j])
 
+    Path("../BO/result/qos_rate").mkdir(parents=True, exist_ok=True)
+    Path("../BO/result/cost").mkdir(parents=True, exist_ok=True)
+
+    #TODO make directory
     with open(f'../BO/result/{model}_gradient.json', 'w') as f: 
         json.dump(summary, f, indent=4)
-
-
+    with open(f'../BO/result/qos_rate/{model}_gradient.json', 'w') as f: 
+        json.dump(qos_rate, f, indent=4)
+    with open(f'../BO/result/cost/{model}_gradient.json', 'w') as f: 
+        json.dump(cost, f, indent=4)
 
 
