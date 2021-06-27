@@ -76,9 +76,9 @@ def eval_qos(model, num1, num2, num3):
     return price, rate
 
 def qos_lookup(model, num1, num2, num3):
-    assert type(num1) == int
-    assert type(num2) == int
-    assert type(num3) == int
+    assert type(num1) == int or type(num1) == np.int64
+    assert type(num2) == int or type(num2) == np.int64
+    assert type(num3) == int or type(num3) == np.int64
     key = f'{num1}, {num2}, {num3}'
     if num1 == 0 and num2 == 0 and num3 == 0:
         return 0, 0

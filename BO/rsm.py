@@ -43,6 +43,7 @@ def inner_loop(iteration, prices):
         # each price is associated with the number of samples to reach it
         data[j] = 0
     gd = BO_functions.RSM_gradient(remain, seed=iteration)
+
     total_space = len(gd.remain)
     ccf_list = gd.gen_ccf()
     for point in ccf_list:
@@ -51,7 +52,6 @@ def inner_loop(iteration, prices):
         data = check_step(gd, data)
     gd.rank_ccf()
     starting_point = gd.get_sp()
-#    pdb.set_trace()
     gd.initialize(starting_point)
     data = check_step(gd, data)
     while data[optimal] == 0:
@@ -82,7 +82,7 @@ for model in models:
                 remain.append(point)
 
     homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
-    saving_arr = np.array(saving[model])
+    saving_arr = np.array(saving[model][::-1])
     hetero_p = homo_p * (1 - saving_arr / 100)
     prices = [round(val,2) for val in hetero_p]
     optimal = min(prices)
@@ -101,7 +101,7 @@ for model in models:
 
         for j in prices:
             ind = prices.index(j)
-            summary[hetero_p[ind]].append(result[0][j])
+            summary[prices[ind]].append(result[0][j])
 
     with open(f'../BO/result/{model}_rsm.json', 'w') as f: 
         json.dump(summary, f, indent=4)

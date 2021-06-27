@@ -78,7 +78,7 @@ for model in models:
                 remain.append(point)
 
     homo_p = BO_functions.total_price(model, homo_key[model], 0, 0)
-    saving_arr = np.array(saving[model])
+    saving_arr = np.array(saving[model][::-1])
     hetero_p = homo_p * (1 - saving_arr / 100)
     prices = [round(val,2) for val in hetero_p]
     optimal = min(prices)
@@ -95,7 +95,7 @@ for model in models:
         cost.append(result[2])
         for j in prices:
             ind = prices.index(j)
-            summary[hetero_p[ind]].append(result[0][j])
+            summary[prices[ind]].append(result[0][j])
 
     with open(f'../BO/result/{model}_gradient.json', 'w') as f: 
         json.dump(summary, f, indent=4)
