@@ -19,6 +19,7 @@ from BO_functions import BO
 from bayes_opt import BayesianOptimization
 from joblib import Parallel, delayed
 import multiprocessing
+from pathlib import Path
 
 ######################
 # when doing prune, change the following
@@ -73,7 +74,7 @@ def inner_loop(iteration, scores):
             for k,v in data.items():
                 if v == 0:
                     data[k] = None
-            print(f'value error occured on model {model}, BO trial {current_iter}')
+#            print(f'value error occured on model {model}, BO trial {current_iter}')
             break
 
         current_iter += 1
@@ -125,6 +126,9 @@ for model in models:
         for j in scores:
             ind = scores.index(j)
             summary[hetero_p[ind]].append(result[0][j])
+
+    Path("../BO/result/qos_rate").mkdir(parents=True, exist_ok=True)
+    Path("../BO/result/cost").mkdir(parents=True, exist_ok=True)
 
     with open(f'../BO/result/{model}_simbo.json', 'w') as f: 
         json.dump(summary, f, indent=4)
