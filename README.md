@@ -19,13 +19,13 @@ To setup the BO backend, clone the repo, copy the source file over and build the
 cd /<usr_git_dir> # replace with custom path
 git clone https://github.com/fmfn/BayesianOptimization.git
 cp SIMBO/bayesian_optimization.py BayesianOptimization/bayes_opt
+cp SIMBO/util.py BayesianOptimization/bayes_opt
 cd BayesianOptimization
 python setup.py build
 PYTHONPATH="$PYTHONPATH:/<usr_gir_dir>/BayesianOptimization/build/lib" # make sure python sees this library
 export PYTHONPATH
 cd /<usr_git_dir>/SIMBO
 ```
-
 ## Inference models
 
 The source code for evaluated models are in the ```models``` directory. The characterization data of each model on various instances are in the ```characterization``` directory. To verify the characterization data, navigate to the ```models``` directory, follow the instructions to run the benchmarks, and compare the collected logs with data in ```characterization```.
