@@ -41,9 +41,6 @@ class Query:
     def __init__(self, query, curr_time, **kwargs): # curr_time, ins_type and price_dict
         self.query = query # ith instance
         self.batch = kwargs['batch']
-        #self.lat_c5a = kwargs['lat_c5a']
-        #self.lat_r4 = kwargs['lat_r4']
-        #self.lat_m5 = kwargs['lat_m5']
         self.lats = kwargs['lats']
         self.lats_est = kwargs['lats_est']
         self.t_arrive = curr_time

@@ -1,5 +1,4 @@
 import sys
-#from matplotlib.ticker import MultipleLocator
 import json
 import os
 os.chdir('../query')
@@ -74,6 +73,17 @@ def eval_qos(model, num1, num2, num3):
     kwargs = {'num_samp':25000, 'inter_arrival':read['inter_arrival'], 'qos':read['qos'], 'rm':read['rm']}
     price, rate = distr.run(types, **kwargs)
     return price, rate
+
+'''
+Instead of repeatedly evaluating the QoS rate for every configuration, 
+a lookup table is available in the query/lookups directry to save time.
+The table can be read in as dictionary, the key is the configuration, 
+the value is [price ($), QoS rate (%)]. 
+
+To verify the QoS rate in the lookup table, navigate to query directory,
+run "python distributor --model M --type1 X --type2 Y --type3 Z", where 
+M is the model name, X, Y, Z are the number of each instance type.
+'''
 
 def qos_lookup(model, num1, num2, num3):
     assert type(num1) == int or type(num1) == np.int64

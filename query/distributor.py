@@ -4,11 +4,8 @@ from datetime import datetime
 import matplotlib
 import numpy as np
 import matplotlib
-#matplotlib.use('Agg')
-#import matplotlib.pyplot as plt
 import glob
 import sys
-#from matplotlib.ticker import MultipleLocator
 import json
 import os
 import math
@@ -16,6 +13,7 @@ import random
 import time
 import functions
 from functions import Instance
+import argparse
 
 def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
 
@@ -27,10 +25,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
     price_dict = {}
     for i in range(len(instance_list)):
         price_dict[instance_list[i]] = price_list[i]
-    
-    # run simulation in ms.
-    
-    #num_samp = 20000
     
     queue_time = [] # this is the arrival time of each query
     arrival_time = 0 
@@ -83,7 +77,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
                 else:
                     break
             else:
-    #            print('no more queries')
                 break
     
         # start the first query in pending queue
@@ -132,9 +125,6 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
         if query == num_samp and len(pending_q) == 0:
             break
     
-    #    if time.time() - time_start > 30:
-    #        pdb.set_trace()
-    
     total_price = sum([(k.price) for k in ins_list])
     vio_array = np.array(violation)
     non_vio = (vio_array == 0).sum() / len(vio_array) * 100
@@ -149,14 +139,8 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
         print(f'number of instances: {num_ins}')
         print(f'instance type: {types}')
         print(f'total price: ${total_price}')
-        print(f'non violation: {non_vio}%')
-        print(f'lat violation: {lat_vio}%')
-        print(f'wait violation: {wait_vio}%')
-        print(f'sum violation: {sum_vio}%')
-        print(f'throughput QPS: {throughput}')
+        print(f'QoS satisfaction rate: {non_vio}%')
    
-    #TODO: write these things as output.json
-    
     output = {}
     output['total_price'] = round(total_price,2)
     output['non_vio'] = round(non_vio,2)
@@ -168,8 +152,17 @@ def run(types, num_samp=20000, inter_arrival=5, p=False, qos=100, rm='model'):
     return output['total_price'], output['non_vio']
 
 def main():
-    run({'c5a.4xlarge': 4, 't3.2xlarge':5, 'm5.2xlarge': 0}, num_samp=20000, inter_arrival=18, p=True, qos=400, rm='resnet') 
-    run({'c5a.4xlarge': 4, 'm5.2xlarge': 0, 't3.2xlarge':5}, num_samp=20000, inter_arrival=18, p=True, qos=400, rm='resnet') 
+    parser = argparse.ArgumentParser(description='put in instance configuration to evaluate QoS rate.')
+    parser.add_argument('--model', type=str, help='model')
+    parser.add_argument('--type1', type=int, help='number of type1 instances')
+    parser.add_argument('--type2', type=int, help='number of type2 instances')
+    parser.add_argument('--type3', type=int, help='number of type3 instances')
+    args = parser.parse_args()
+    with open(f'configs/{args.model}.json') as f:
+        config = json.load(f)
+    types = config['ins_types']
+    ins_pool = {types[0]: args.type1, types[1]: args.type2, types[2]: args.type3} 
+    run(ins_pool, num_samp=20000, inter_arrival=config['inter_arrival'], p=True, qos=config['qos'], rm=args.model) 
    
 if __name__ == '__main__':
     main()
