@@ -4,11 +4,10 @@ SIMBO applies a Bayesian Optimization (BO) engine for heterogeneous instance ser
 
 ## Dependencies
 
-* Python 3.7
-* Numpy 1.18
-* Scipy 1.4
-* Scikit-learn 0.24
-* Joblib 1.0
+With Python 3.7 ready, the other required packages can be installed with command
+```shell
+pip install -r requirements.txt
+```
 
 ## Bayesian Optimization Engine Setup
 
@@ -17,14 +16,14 @@ SIMBO uses a modified public open-source BO library from [fmfn](https://github.c
 To setup the BO backend, clone the repo, copy the source file over and build the library
 
 ```shell
-cd /usr_git_dir # replace with custom path
+cd /<usr_git_dir> # replace with custom path
 git clone https://github.com/fmfn/BayesianOptimization.git
 cp SIMBO/bayesian_optimization.py BayesianOptimization/bayes_opt
 cd BayesianOptimization
 python setup.py build
-PYTHONPATH="$PYTHONPATH:/usr_gir_dir/BayesianOptimization/build/lib" # make sure python sees this library
+PYTHONPATH="$PYTHONPATH:/<usr_gir_dir>/BayesianOptimization/build/lib" # make sure python sees this library
 export PYTHONPATH
-cd /usr_git_dir/SIMBO
+cd /<usr_git_dir>/SIMBO
 ```
 
 ## Inference models
