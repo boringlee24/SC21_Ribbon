@@ -49,23 +49,19 @@ tar -xf logs.tar.gz
 cd ../
 ```
 
-Navigate to the BO directory and run SIMBO
+Navigate to the BO directory, run SIMBO and all competing schemes
 
 ```shell
 cd BO/
-python simbo.py
+./all_scheme.sh
 ```
 
-## Compare SIMBO against other schemes
-
-```shell
-python all_scheme.sh
-```
 To visualize the comparison, run
 
 ```shell
-cd ../
-python visualize.py
+cd visualize
+python num_of_samples.py
+python explore_cost.py
 ```
 
-The ```result.pdf``` shows the visualized comparison.
+After running the visualization scripts, new figures will appear in the ```visualize``` directory. The ```num_of_samples.png``` picture shows the number of samples to find the optimal instance pool for all schemes, the ```explore_cost.png``` picture shows the total cost of exploration for all schemes.
