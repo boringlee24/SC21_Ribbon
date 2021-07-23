@@ -29,7 +29,7 @@ git clone https://github.com/ECP-CANDLE/Benchmarks candle
 cp SIMBO/models/Combo/* candle/Pilot1/Combo
 cd candle/Pilot1/Combo
 ```
-Download the trained model files: [saved.model.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.model.h5) and [saved.weights.h5](http://ftp.mcs.anl.gov/pub/candle/public/benchmarks/Pilot1/combo/saved.weights.h5). Put them in current directory.
+Download the trained model files: [saved.model.h5](https://drive.google.com/file/d/1Tfs5Jyi9iDS7rlutX9GzlDtBElT6ybfi/view?usp=sharing) and [saved.weights.h5](https://drive.google.com/file/d/1Yd81NjTPeEBpUgK9W_WWaHcAMWNeyasd/view?usp=sharing). Put them in current directory, and make sure the filenames are correct.
 
 To run the benchmark, do ```python candle_inf.py --testcase <instance name>```. The characterization results will reside in the ```logs``` directory
 
