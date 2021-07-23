@@ -29,16 +29,15 @@ git clone https://github.com/ECP-CANDLE/Benchmarks candle
 cp SIMBO/models/Combo/* candle/Pilot1/Combo
 cd candle/Pilot1/Combo
 ```
-Download the trained model files: [saved.model.h5](https://drive.google.com/file/d/1Tfs5Jyi9iDS7rlutX9GzlDtBElT6ybfi/view?usp=sharing) and [saved.weights.h5](https://drive.google.com/file/d/1Yd81NjTPeEBpUgK9W_WWaHcAMWNeyasd/view?usp=sharing). Put them in current directory, and make sure the filenames are correct.
+Download the trained model files: [saved.model.h5](https://drive.google.com/file/d/1Tfs5Jyi9iDS7rlutX9GzlDtBElT6ybfi/view?usp=sharing) and [saved.weights.h5](https://drive.google.com/file/d/1Yd81NjTPeEBpUgK9W_WWaHcAMWNeyasd/view?usp=sharing). These links do not work with Linux wget, try download directly from browser, and upload these files from local into the current directory.
 
 To run the benchmark, do ```python candle_inf.py --testcase <instance name>```. The characterization results will reside in the ```logs``` directory
 
-To run the ResNet and VGG models, navigate to SIMBO directory, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing), execute the scripts. Characterization results are saved to the ```logs``` directory
+To run the ResNet and VGG models, navigate to SIMBO directory, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing). These links do not work with Linux wget, try download directly from browser, and upload these files from local into the current directory. Execute the scripts. Characterization results are saved to the ```logs``` directory
 
 ```shell
 cd /usr_git_dir/SIMBO/models
 # download the trained models
-wget <model link>
 python resnet_inf.py --testcase <instance name>
 python vgg_inf.py --testcase <instance name>
 ```
