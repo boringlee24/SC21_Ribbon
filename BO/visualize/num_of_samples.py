@@ -16,7 +16,7 @@ models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien']
 MODELS = ['CANDLE', 'ResNet50', 'VGG19', 'MT-WND', 'DIEN']
 
 data = {}
-methods = ['gradient', 'rand_plus', 'rsm', 'simbo']
+methods = ['gradient', 'rand_plus', 'rsm', 'ribbon']
 names = ['Hill-Cl.', 'RAND', 'RSM', 'SIMBO']
 colors = ['deepskyblue', 'purple', 'green', 'orangered']
 

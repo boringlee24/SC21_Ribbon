@@ -14,7 +14,7 @@ import os
 
 models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien']
 MODELS = ['CANDLE', 'ResNet50', 'VGG19', 'MT-WND', 'DIEN']
-methods = ['gradient', 'rand_plus', 'rsm', 'simbo']
+methods = ['gradient', 'rand_plus', 'rsm', 'ribbon']
 names = ['Hill-Climb', 'RAND', 'RSM', 'SIMBO'] 
 colors = ['deepskyblue', 'purple', 'green', 'orangered']
 
