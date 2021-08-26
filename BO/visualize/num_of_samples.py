@@ -17,7 +17,7 @@ MODELS = ['CANDLE', 'ResNet50', 'VGG19', 'MT-WND', 'DIEN']
 
 data = {}
 methods = ['gradient', 'rand_plus', 'rsm', 'ribbon']
-names = ['Hill-Cl.', 'RAND', 'RSM', 'SIMBO']
+names = ['Hill-Cl.', 'RAND', 'RSM', 'RIBBON']
 colors = ['deepskyblue', 'purple', 'green', 'orangered']
 
 with open('../../query/configs/saving.json') as f:

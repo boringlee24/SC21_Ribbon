@@ -15,7 +15,7 @@ import os
 models = ['candle', 'resnet', 'vgg', 'mtwnd', 'dien']
 MODELS = ['CANDLE', 'ResNet50', 'VGG19', 'MT-WND', 'DIEN']
 methods = ['gradient', 'rand_plus', 'rsm', 'ribbon']
-names = ['Hill-Climb', 'RAND', 'RSM', 'SIMBO'] 
+names = ['Hill-Climb', 'RAND', 'RSM', 'RIBBON'] 
 colors = ['deepskyblue', 'purple', 'green', 'orangered']
 
 fig, axs = plt.subplots(1, 1, gridspec_kw={'hspace': 0, 'wspace': 0, 'bottom': 0.13, 'top': 0.83, 'right':0.995, 'left':0.123}, figsize=(7,2.3))
