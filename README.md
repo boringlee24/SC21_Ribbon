@@ -64,3 +64,5 @@ python explore_cost.py
 ```
 
 After running the visualization scripts, new figures will appear in the ```visualize``` directory. The ```num_of_samples.png``` picture shows the number of samples to find the optimal instance pool for all schemes, the ```explore_cost.png``` picture shows the total cost of exploration for all schemes.
+
+For further inquries, please contact [li.baol@northeastern.edu](li.baol@northeastern.edu)
