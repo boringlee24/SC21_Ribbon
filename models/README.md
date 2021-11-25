@@ -26,17 +26,17 @@ To run CANDLE Combo model, clone the [candle repo](https://github.com/ECP-CANDLE
 conda activate tf-gpu
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/ECP-CANDLE/Benchmarks candle
-cp SIMBO/models/Combo/* candle/Pilot1/Combo
+cp Ribbon/models/Combo/* candle/Pilot1/Combo
 cd candle/Pilot1/Combo
 ```
 Download the trained model files: [saved.model.h5](https://drive.google.com/file/d/1Tfs5Jyi9iDS7rlutX9GzlDtBElT6ybfi/view?usp=sharing) and [saved.weights.h5](https://drive.google.com/file/d/1Yd81NjTPeEBpUgK9W_WWaHcAMWNeyasd/view?usp=sharing). These links do not work with Linux wget, try download directly from browser, and upload these files from local into the current directory.
 
 To run the benchmark, do ```python candle_inf.py --testcase <instance name>```. The characterization results will reside in the ```logs``` directory
 
-To run the ResNet and VGG models, navigate to SIMBO directory, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing). These links do not work with Linux wget, try download directly from browser, and upload these files from local into the current directory. Execute the scripts. Characterization results are saved to the ```logs``` directory
+To run the ResNet and VGG models, navigate to RIBBON directory, download the trained model files: [resnet.h5](https://drive.google.com/file/d/1aCpICrCKuU7QFIG73jLXWwtTfWIVAFWL/view?usp=sharing) and [vgg.h5](https://drive.google.com/file/d/17F_GGAnKU23M5I4VEZUtU2TmPIqjp34E/view?usp=sharing). These links do not work with Linux wget, try download directly from browser, and upload these files from local into the current directory. Execute the scripts. Characterization results are saved to the ```logs``` directory
 
 ```shell
-cd /usr_git_dir/SIMBO/models
+cd /usr_git_dir/Ribbon/models
 # download the trained models
 python resnet_inf.py --testcase <instance name>
 python vgg_inf.py --testcase <instance name>
@@ -48,8 +48,8 @@ conda deactivate
 conda activate pytorch-gpu
 cd /usr_git_dir # replace with custom path
 git clone https://github.com/harvard-acc/DeepRecSys
-cp -r SIMBO/models/rec_inf/ DeepRecSys/models
-cp SIMBO/models/utils.py DeepRecSys/utils
+cp -r Ribbon/models/rec_inf/ DeepRecSys/models
+cp Ribbon/models/utils.py DeepRecSys/utils
 cd DeepRecSys/models/rec_inf
 python experiment.py --testcase <instance name>
 ```
