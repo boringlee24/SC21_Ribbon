@@ -1,4 +1,4 @@
-# Ribbon
+# SC21 Ribbon Artifact
 
 Ribbon applies a Bayesian Optimization (BO) engine for heterogeneous instance serving of ML inference queries.
 
