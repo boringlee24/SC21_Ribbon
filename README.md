@@ -1,4 +1,4 @@
-# SC21 Ribbon Artifact
+# SC21 RIBBON: cost-effective and qos-aware deep learning model inference using a diverse pool of cloud computing instances 
 
 Ribbon applies a Bayesian Optimization (BO) engine for heterogeneous instance serving of ML inference queries. Please see the link for the full paper here: [RIBBON: cost-effective and qos-aware deep learning model inference using a diverse pool of cloud computing instances](https://dl.acm.org/doi/10.1145/3458817.3476168)
 
